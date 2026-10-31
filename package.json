@@ -5,7 +5,7 @@
   "keywords": ["demo", "video", "screencast", "narration", "playwright", "figma", "figma-plugin", "tts"],
   "author": "Marius Roosendaal",
   "license": "MIT",
-  "homepage": "https://mariusroosendaal.github.io/recital/",
+  "homepage": "https://recital.video/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mariusroosendaal/recital.git"

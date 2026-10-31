@@ -4,7 +4,7 @@ Narrated demo videos of anything in a browser, from a script. A scenario says wh
 click and what to say; the recorder drives Chromium with a calm cursor and records at
 3200×1800, 60 fps, paced to the voice. When the product changes, record it again.
 
-Website: [mariusroosendaal.github.io/recital](https://mariusroosendaal.github.io/recital/)
+Website: [recital.video](https://recital.video/)
 
 | [![Data Mapper, a Figma plugin: adding a data source, mapping it to a card and making a copy per record](docs/media/figma-plugin.jpg)](docs/media/figma-plugin.mp4) | [![Rijksmuseum: searching the collection for the Night Watch, zooming in on the painting, and down to its stories](docs/media/website.jpg)](docs/media/website.mp4) |
 |---|---|
