@@ -21,6 +21,8 @@ README.md has the commands and the scenario format.
   Its scenario excerpts and step times follow `examples/scenarios/rijksmuseum.js` and its take,
   and the Data Mapper scenario and its narrated take (`docs/media/figma-plugin.mp4`, burned-in
   captions for the README; the site plays `figma-plugin-plain.mp4` with `figma-plugin.vtt`).
+  Phones get `*-small.mp4` copies; remake them when a take changes:
+  `ffmpeg -i X.mp4 -vf scale=1280:800:flags=lanczos,fps=30 -c:v libx264 -preset slow -crf 25 -level 4.0 -c:a copy -movflags +faststart X-small.mp4`.
 
 Recording runs Chromium: run it bare, with no pipe and no `cd … &&`, outside the sandbox.
 

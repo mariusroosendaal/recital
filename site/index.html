@@ -326,7 +326,10 @@
       </div>
       <div class="player">
         <div class="screen"><div class="frame">
-          <video src="media/website.mp4" poster="media/website.jpg" muted loop playsinline preload="metadata" aria-label="Rijksmuseum: searching the collection for the Night Watch, zooming in on the painting, and down to its stories"></video>
+          <video poster="media/website.jpg" muted loop playsinline preload="metadata" aria-label="Rijksmuseum: searching the collection for the Night Watch, zooming in on the painting, and down to its stories">
+            <source src="media/website-small.mp4" type="video/mp4" media="(max-width: 860px)">
+            <source src="media/website.mp4" type="video/mp4">
+          </video>
         </div></div>
         <div class="timeline"></div>
       </div>
@@ -361,7 +364,9 @@
       </div>
       <div class="player">
         <div class="screen"><div class="frame">
-          <video src="media/figma-plugin-plain.mp4" poster="media/figma-plugin.jpg" muted loop playsinline preload="metadata" data-sound aria-label="Data Mapper, a Figma plugin: adding a data source, mapping it to a card and making a copy per record">
+          <video poster="media/figma-plugin.jpg" muted loop playsinline preload="metadata" data-sound aria-label="Data Mapper, a Figma plugin: adding a data source, mapping it to a card and making a copy per record">
+            <source src="media/figma-plugin-plain-small.mp4" type="video/mp4" media="(max-width: 860px)">
+            <source src="media/figma-plugin-plain.mp4" type="video/mp4">
             <track kind="captions" src="media/figma-plugin.vtt" srclang="en" label="English" default>
           </video>
           <p class="cc" aria-hidden="true" hidden><span></span></p>
@@ -494,15 +499,18 @@
       const b = document.createElement("button");
       b.type = "button";
       b.className = "ctl";
+      // Follows the video, not the intent: a browser that won't play by itself
+      // (Firefox on iOS, Low Power Mode) leaves it paused, behind a play button
       const show = () => {
-        b.innerHTML = held ? PLAY : PAUSE;
-        b.setAttribute("aria-label", held ? "Play the video" : "Pause the video");
+        b.innerHTML = video.paused ? PLAY : PAUSE;
+        b.setAttribute("aria-label", video.paused ? "Play the video" : "Pause the video");
       };
       b.addEventListener("click", () => {
-        held = !held;
+        held = !video.paused;
         held ? video.pause() : play();
-        show();
       });
+      video.addEventListener("play", show);
+      video.addEventListener("pause", show);
       show();
       ctls.appendChild(b);
 
