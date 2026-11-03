@@ -1,0 +1,13 @@
+node_modules
+.profile/
+output/
+.env
+.env.local
+.DS_Store
+.models/
+.narration/
+docs/landscape.md
+workspaces.json
+CLAUDE.local.md
+.claude/settings.json
+dist/

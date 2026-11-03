@@ -1,0 +1,9 @@
+{
+  "name": "recital",
+  "description": "Write, record and narrate demo videos of web apps and Figma plugins with recital",
+  "version": "0.3.1",
+  "author": { "name": "Marius Roosendaal" },
+  "homepage": "https://github.com/mariusroosendaal/recital",
+  "repository": "https://github.com/mariusroosendaal/recital",
+  "license": "MIT"
+}

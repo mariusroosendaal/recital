@@ -1,0 +1,12 @@
+{
+  "name": "recital",
+  "interface": { "displayName": "recital" },
+  "plugins": [
+    {
+      "name": "recital",
+      "source": { "source": "local", "path": "./" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

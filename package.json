@@ -1,0 +1,56 @@
+{
+  "name": "recitaljs",
+  "version": "0.3.1",
+  "description": "Script narrated demo videos of web apps and Figma plugins: write what to click and what to say, and recital records it",
+  "keywords": ["demo", "video", "screencast", "narration", "playwright", "figma", "figma-plugin", "tts", "mcp", "mcp-server", "ai-agent", "agent-skills", "claude"],
+  "author": "Marius Roosendaal",
+  "license": "MIT",
+  "homepage": "https://github.com/mariusroosendaal/recital",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariusroosendaal/recital.git"
+  },
+  "bugs": "https://github.com/mariusroosendaal/recital/issues",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "src",
+    "assets",
+    "examples/scenarios",
+    "examples/inspect",
+    "skills",
+    "docs/narration.md",
+    "docs/figma.md",
+    "docs/adapters.md",
+    "docs/ci.md",
+    "types.d.ts"
+  ],
+  "type": "module",
+  "bin": {
+    "recital": "src/bin.js"
+  },
+  "types": "types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types.d.ts"
+    },
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "demo": "node src/bin.js demo",
+    "camera": "node src/bin.js camera",
+    "narrate": "node src/bin.js narrate",
+    "clips": "node src/bin.js clips",
+    "frames": "node src/bin.js frames",
+    "scripts": "node src/bin.js scripts",
+    "doctor": "node src/bin.js doctor",
+    "validate": "node src/bin.js validate",
+    "test": "node --test test/unit.test.js",
+    "test:smoke": "node --test test/smoke.test.js"
+  },
+  "dependencies": {
+    "kokoro-js": "^1.2.1",
+    "playwright": "1.63.0"
+  }
+}

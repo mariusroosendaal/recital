@@ -1,0 +1,71 @@
+{
+  "manifest_version": "0.2",
+  "name": "recital",
+  "display_name": "recital",
+  "version": "0.0.0",
+  "description": "Narrated demo videos of web apps, websites and Figma plugins: ask Claude for a demo, and it writes, records and narrates it.",
+  "long_description": "recital records a narrated demo video of anything in a browser. Claude plans the demo with you, opens the page, writes the steps, records them with a calm cursor, looks at the frames and fixes what's off, then adds a voice and captions. The videos are in the demos folder you choose. Recording opens a browser window; for sites that need a login, you sign in once yourself, in a window it opens. The voice is local and free; ElevenLabs voices need an API key.",
+  "author": { "name": "Marius Roosendaal", "url": "https://marius.systems" },
+  "homepage": "https://github.com/mariusroosendaal/recital",
+  "documentation": "https://github.com/mariusroosendaal/recital#readme",
+  "repository": { "type": "git", "url": "https://github.com/mariusroosendaal/recital" },
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "src/bin.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/src/bin.js", "mcp"],
+      "env": {
+        "DEMO_WORKSPACE": "${user_config.workspace}",
+        "ELEVENLABS_API_KEY": "${user_config.elevenlabs_api_key}",
+        "RECITAL_MCP_WAIT": "45",
+        "RECITAL_MCP_SESSIONS": "${user_config.log_sessions}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "guide", "description": "How to make a demo, the scenario format, and writing the narration" },
+    { "name": "setup", "description": "Makes the demos folder and downloads the browser" },
+    { "name": "list_demos", "description": "The demos and their videos" },
+    { "name": "read_scenario", "description": "A demo's scenario" },
+    { "name": "write_scenario", "description": "Writes and checks a demo's scenario" },
+    { "name": "inspect_page", "description": "Screenshots of a page, with its headings, links and buttons" },
+    { "name": "record", "description": "Records a take, with a contact sheet of its steps" },
+    { "name": "camera", "description": "A version that zooms in" },
+    { "name": "frames", "description": "Frames of a take at given times" },
+    { "name": "narrate", "description": "The final video, with the voice and captions" },
+    { "name": "login", "description": "Opens the browser to sign in to a site" },
+    { "name": "open", "description": "Opens a video to watch" },
+    { "name": "wait", "description": "Waits for a tool still running" }
+  ],
+  "user_config": {
+    "workspace": {
+      "type": "directory",
+      "title": "Demos folder",
+      "description": "Where the demos and their videos go",
+      "required": true,
+      "default": "~/Documents/Demos"
+    },
+    "elevenlabs_api_key": {
+      "type": "string",
+      "title": "ElevenLabs API key",
+      "description": "Optional, for ElevenLabs voices; the built-in voice needs none",
+      "sensitive": true,
+      "required": false
+    },
+    "log_sessions": {
+      "type": "boolean",
+      "title": "Log sessions",
+      "description": "Keep each session's steps and screenshots in output/sessions/ in the demos folder. They can show sites you're signed in to",
+      "required": false,
+      "default": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin"],
+    "runtimes": { "node": ">=20.0.0" }
+  },
+  "keywords": ["demo", "video", "screencast", "narration", "figma"],
+  "license": "MIT"
+}

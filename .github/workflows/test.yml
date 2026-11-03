@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: ffmpeg
+        run: ${{ runner.os == 'macOS' && 'brew install ffmpeg' || 'sudo apt-get update && sudo apt-get install -y ffmpeg' }}
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      # Headed on macOS; on Linux, with no display, the take records headless
+      - run: npm run test:smoke
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ matrix.os }}
+          path: ${{ runner.temp }}/recital-smoke-*
+          if-no-files-found: ignore

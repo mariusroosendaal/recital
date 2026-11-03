@@ -1,0 +1,50 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+      - run: npm test
+      # The release's tag names the version: v0.2.0 publishes package.json's 0.2.0
+      - run: test "${{ github.event.release.tag_name }}" = "v$(node -p 'require("./package.json").version')"
+      # Trusted publishing: npm exchanges the workflow's OIDC token for a
+      # one-off publish credential, so there is no NPM_TOKEN to expire. Needs
+      # npm 11.5.1+ (Node 24) and the package's trusted publisher set on npmjs.com.
+      # A release marked as a pre-release, such as v1.0.0-rc.0, goes under the
+      # `next` tag, so `npm install` keeps giving everyone the last stable one.
+      - run: npm publish --access public ${{ github.event.release.prerelease && '--tag next' || '' }}
+
+  # The Claude Desktop extension, attached to the release: macOS on Apple silicon; and the
+  # ChatGPT and Codex plugin
+  extension:
+    needs: publish
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+      # mcpb.sh starts the server to check its tools, which needs the dependencies
+      - run: npm ci
+      - run: scripts/mcpb.sh dist
+      - run: scripts/plugin.sh dist
+      - run: gh release upload "$TAG" dist/*.mcpb dist/recital-plugin.zip --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}

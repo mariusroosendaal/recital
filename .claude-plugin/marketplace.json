@@ -1,0 +1,12 @@
+{
+  "name": "recital",
+  "description": "recital's agent skill",
+  "owner": { "name": "Marius Roosendaal" },
+  "plugins": [
+    {
+      "name": "recital",
+      "source": "./",
+      "description": "Write, record and narrate demo videos of web apps and Figma plugins with recital"
+    }
+  ]
+}
